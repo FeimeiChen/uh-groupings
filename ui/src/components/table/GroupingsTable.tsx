@@ -44,13 +44,14 @@ const GroupingsTable = ({ data }) => {
 
     return (
         <div>
-            <div className="flex justify-between">
-                <h1 className="text-3xl text-text-color pb-7 pt-5">Manage Groupings</h1>
-                <div className="flex items-center space-x-4">
+            <div className="flex flex-col md:flex-row md:justify-between">
+                <h1 className="text-3xl text-text-color text-center md:pb-7 pt-5">Manage Groupings</h1>
+                <div className="flex items-center space-x-3 pb-5">
                     <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
                     <ColumnSettings table={table} />
                 </div>
             </div>
+
             <Table className="relative overflow-x-auto">
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
