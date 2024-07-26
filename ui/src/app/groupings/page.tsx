@@ -1,4 +1,9 @@
-const Groupings = () => {
+import GroupingsTable from '@/components/table/GroupingsTable';
+import {ownerGroupings} from '@/actions/groupings-api';
+
+const Groupings = async () => {
+    const res = await ownerGroupings();
+    const groupingPaths = res.groupingPaths;
     return ( 
         <main>
             <div className="bg-seafoam pt-3">
@@ -8,10 +13,12 @@ const Groupings = () => {
                         View and manage groupings I own. Manage members, 
                         configure grouping options and sync destinations.
                     </p>
+
+
                 </div>
                 <div className="bg-white">
                     <div className="container">
-                        {/* GroupingsTable goes here */}
+                        <GroupingsTable data={groupingPaths}/>
                     </div>
                 </div>
             </div>
