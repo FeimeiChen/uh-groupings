@@ -13,13 +13,15 @@ import GroupingsTableHeaders from '@/components/table/table-element/GroupingsTab
 import PaginationBar from '@/components/table/table-element/Pagination';
 import GlobalFilter from '@/components/table/table-element/GlobalFilter';
 import SortArrow from '@/components/table/table-element/SortArrow';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SquarePen } from 'lucide-react';
 import GroupingPathComponent from '@/components/table/table-element/GroupingPathComponent';
 
 const GroupingsTable = ({ data }) => {
     const [globalFilter, setGlobalFilter] = useState('');
     const [sorting, setSorting] = useState([]);
+
+
     const table = useReactTable({
         data,
         columns: GroupingsTableHeaders,
@@ -43,10 +45,10 @@ const GroupingsTable = ({ data }) => {
     const columnCount = table.getHeaderGroups()[0].headers.length;
 
     return (
-        <div>
-            <div className="flex flex-col md:flex-row md:justify-between">
-                <h1 className="text-3xl text-text-color text-center md:pb-7 pt-5">Manage Groupings</h1>
-                <div className="flex items-center space-x-3 pb-5">
+        <div className="px-4">
+            <div className="flex flex-col md:flex-row md:justify-between pt-5 mb-4">
+                <h1 className="text-[2rem] font-medium text-text-color text-center pt-3">Manage Groupings</h1>
+                <div className="flex items-center space-x-2">
                     <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
                     <ColumnSettings table={table} />
                 </div>
@@ -60,11 +62,11 @@ const GroupingsTable = ({ data }) => {
                                 <TableHead
                                     key={header.id}
                                     onClick={header.column.getToggleSortingHandler()}
-                                    className={`font-semibold text-uh-black border-solid border-t-[1px] border-b-[1px] py-3 size-[0.1rem] ${
-                                       columnCount ===2 && index === 1 ? 'w-2/3' : 'w-1/3'
-                                    }`}
+                                    className={`font-semibold text-uh-black border-solid border-t-[1px] border-b-[2px] py-3 size-[0.1rem] ${
+                                        columnCount === 2 && index === 1 ? 'w-2/3' : 'w-1/3'
+                                    } ${header.column.id !== 'GROUPING NAME' ? 'hidden sm:table-cell' : ''}`}
                                 >
-                                    <div className="flex items-center">
+                                    <div className="flex items-center text-[0.8rem] font-bold">
                                         {flexRender(header.column.columnDef.header, header.getContext())}
                                         {header.column.getIsSorted() && (
                                             <SortArrow direction={header.column.getIsSorted()} />
@@ -76,23 +78,33 @@ const GroupingsTable = ({ data }) => {
                     ))}
                 </TableHeader>
                 <TableBody>
-                    {table.getRowModel().rows.map((row,index) => (
+                    {table.getRowModel().rows.map((row, index) => (
                         <TableRow key={row.id} className={index % 2 === 0 ? 'bg-light-grey' : ''}>
                             {row.getVisibleCells().map((cell) => (
-                                <TableCell key={cell.id} className='p-0' width={cell.column.columnDef.size}>
-                                    <div className='flex items-center pl-2 pr-2 text-[15.5px]'>
+                                <TableCell
+                                    key={cell.id}
+                                    className={`p-0 ${cell.column.id !== 'GROUPING NAME' ? 'hidden sm:table-cell' : ''}`}
+                                    width={cell.column.columnDef.size}
+                                >
+                                    <div className="flex items-center pl-2 pr-2 text-[15.5px] overflow-hidden whitespace-nowrap">
                                         <div className="m-2">
-                                            {cell.column.id === 'GROUPING NAME' ? <SquarePen className="text-text-primary"/> : null}
+                                            {cell.column.id === 'GROUPING NAME' ? (
+                                                <SquarePen className="text-text-primary" />
+                                            ) : null}
                                         </div>
-                                        {cell.column.id !== 'GROUPING PATH' ? (
-                                                <div className=''>
-                                                    {flexRender(
-                                                        cell.column.columnDef.cell,
-                                                        cell.getContext()
-                                                    )}
-                                                </div>
+                                        {cell.column.id === 'DESCRIPTION' ? (
+                                            <div className="text-table-text text-[1rem] truncate sm:max-w-[calc(7ch+1em)] md:max-w-none">
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            </div>
+                                        ) : cell.column.id !== 'GROUPING PATH' ? (
+                                            <div className="text-table-text text-[1rem]">
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            </div>
                                         ) : (
-                                            <GroupingPathComponent data={cell.row.getValue('GROUPING PATH')} uniqueId={cell.row.id}/>
+                                            <GroupingPathComponent
+                                                data={cell.row.getValue('GROUPING PATH')}
+                                                uniqueId={cell.row.id}
+                                            />
                                         )}
                                     </div>
                                 </TableCell>

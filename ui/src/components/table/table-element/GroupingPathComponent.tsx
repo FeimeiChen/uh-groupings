@@ -37,7 +37,7 @@ const GroupingPathComponent = ({ data, uniqueId }) => {
                 id={`dataInput-${uniqueId}`}
                 // readOnly
                 value={data}
-                className='flex-1 w-full h-6 '
+                className='flex-1 w-full h-6 text-input-text-grey text-[0.875rem] border-none rounded-none w-[161] truncate'
             />
             <div className='relative flex-shrink-0 flex items-center justify-center hover:bg-green-blue h-6'>
                 <button

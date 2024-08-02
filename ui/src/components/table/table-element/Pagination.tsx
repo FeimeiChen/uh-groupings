@@ -21,8 +21,10 @@ const PaginationBar = ({ table }) => {
                 <PaginationItem key={'first'} className="px-2">
                     <PaginationLink
                         onClick={() => {
-                            table.firstPage();
-                            setActivePage(0);
+                            if (table.getCanPreviousPage()) {
+                                table.firstPage();
+                                setActivePage(0);
+                            }
                         }}
                         className={`${
                             !table.getCanPreviousPage() ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
@@ -35,8 +37,10 @@ const PaginationBar = ({ table }) => {
                 <PaginationItem key={'prev'} className="border-l">
                     <PaginationPrevious
                         onClick={() => {
-                            table.previousPage();
-                            setActivePage(activePage - 1);
+                            if (table.getCanPreviousPage()) {
+                                table.previousPage();
+                                setActivePage(activePage - 1);
+                            }
                         }}
                         className={`${
                             !table.getCanPreviousPage() ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
@@ -63,8 +67,10 @@ const PaginationBar = ({ table }) => {
                 <PaginationItem key={'next'}>
                     <PaginationNext
                         onClick={() => {
-                            table.nextPage();
-                            setActivePage(activePage + 1);
+                            if (table.getCanNextPage()) {
+                                table.nextPage();
+                                setActivePage(activePage + 1);
+                            }
                         }}
                         className={`${
                             !table.getCanNextPage() ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
@@ -74,8 +80,10 @@ const PaginationBar = ({ table }) => {
                 <PaginationItem key={'last'} className="px-2 border-l">
                     <PaginationLink
                         onClick={() => {
-                            table.lastPage();
-                            setActivePage(table.getPageCount() - 1);
+                            if (table.getCanNextPage()) {
+                                table.lastPage();
+                                setActivePage(table.getPageCount() - 1);
+                            }
                         }}
                         className={`${
                             !table.getCanNextPage() ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
