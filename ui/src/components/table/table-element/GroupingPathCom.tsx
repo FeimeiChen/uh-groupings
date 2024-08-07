@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useState } from 'react';
 
-const GroupingPath = ({ data, uniqueId }) => {
+const GroupingPathCom = ({ data, uniqueId } : { data: string, uniqueId:string }) => {
     const [tooltipContent, setTooltipContent] = useState('copy');
     const [tooltipVisible, setTooltipVisible] = useState(false);
 
@@ -45,4 +45,4 @@ const GroupingPath = ({ data, uniqueId }) => {
     );
 };
 
-export default GroupingPath;
+export default GroupingPathCom;

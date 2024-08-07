@@ -1,5 +1,5 @@
 import { Input } from '@/components/ui/input'
-import {Dispatch, SetStateAction} from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 interface FilterProps {
     filter: string;

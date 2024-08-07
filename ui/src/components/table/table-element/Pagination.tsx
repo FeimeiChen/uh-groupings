@@ -8,8 +8,14 @@ import {
 } from '@/components/ui/pagination';
 import { DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-ui/react-icons';
 import { useState } from 'react';
+import { GroupingPath } from '@/models/groupings-api-results';
+import {Table} from '@tanstack/table-core';
 
-const PaginationBar = ({ table }) => {
+interface PaginationProps {
+    table: Table<GroupingPath>;
+}
+
+const PaginationBar = ({ table }: PaginationProps) => {
     const [activePage, setActivePage] = useState(0);
     const pageRange = 2;
     const startPage = Math.max(0, activePage - pageRange);
