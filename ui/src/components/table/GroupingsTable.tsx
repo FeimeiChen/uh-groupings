@@ -15,7 +15,7 @@ import GlobalFilter from '@/components/table/table-element/GlobalFilter';
 import SortArrow from '@/components/table/table-element/SortArrow';
 import { useState, useEffect } from 'react';
 import { SquarePen } from 'lucide-react';
-import GroupingPathComponent from '@/components/table/table-element/GroupingPathComponent';
+import GroupingPath from '@/components/table/table-element/GroupingPath';
 
 const GroupingsTable = ({ data }) => {
     const [globalFilter, setGlobalFilter] = useState('');
@@ -49,7 +49,7 @@ const GroupingsTable = ({ data }) => {
                 <h1 className="text-[2rem] font-medium text-text-color text-center pt-3">Manage Groupings</h1>
                 <div className="flex items-center space-x-2">
                     <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-                    <div className="hidden md:block">
+                    <div className="hidden sm:block">
                         <ColumnSettings table={table} />
                     </div>
                 </div>
@@ -108,7 +108,7 @@ const GroupingsTable = ({ data }) => {
                                                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                             </div>
                                         ) : (
-                                            <GroupingPathComponent
+                                            <GroupingPath
                                                 data={cell.row.getValue('GROUPING PATH')}
                                                 uniqueId={cell.row.id}
                                             />

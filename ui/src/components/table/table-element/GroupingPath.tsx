@@ -3,24 +3,17 @@ import { Input } from '@/components/ui/input';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useState } from 'react';
 
-const GroupingPathComponent = ({ data, uniqueId }) => {
+const GroupingPath = ({ data, uniqueId }) => {
     const [tooltipContent, setTooltipContent] = useState('copy');
     const [tooltipVisible, setTooltipVisible] = useState(false);
 
     const handleClick = () => {
-        const input = document.getElementById(`dataInput-${uniqueId}`) as HTMLInputElement;
-        if (input) {
-            input.focus();
-            input.setSelectionRange(0, input.value.length);
-        }
-        navigator.clipboard.writeText(data).then(() => {
-            setTooltipContent('copied!');
-            setTooltipVisible(true);
-            setTimeout(() => {
-                setTooltipContent('copy');
-                setTooltipVisible(false);
-            }, 2000);
-        });
+        setTooltipContent('copied!');
+        setTooltipVisible(true);
+        setTimeout(() => {
+            setTooltipContent('copy');
+            setTooltipVisible(false);
+        }, 2000);
     };
 
     return (
@@ -52,4 +45,4 @@ const GroupingPathComponent = ({ data, uniqueId }) => {
     );
 };
 
-export default GroupingPathComponent;
+export default GroupingPath;
