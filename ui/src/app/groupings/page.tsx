@@ -1,7 +1,14 @@
-const Groupings = () => {
+import GroupingsTable from '@/components/table/groupings-table';
+import { ownerGroupings } from '@/actions/groupings-api';
+
+const Groupings = async () => {
+    const { groupingPaths } = await ownerGroupings();
+
     return (
         <div className="bg-white">
-            <div className="container">{/* GroupingsTable goes here */}</div>
+            <div className="container">
+                <GroupingsTable groupingPaths={groupingPaths} />
+            </div>
         </div>
     );
 };
