@@ -54,7 +54,7 @@ const GroupingsTable = ({ data }) => {
                     </div>
                 </div>
             </div>
-
+//
             <Table className="relative overflow-x-auto">
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
