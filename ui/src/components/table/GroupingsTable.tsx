@@ -16,7 +16,7 @@ import GlobalFilter from '@/components/table/table-element/GlobalFilter';
 import SortArrow from '@/components/table/table-element/SortArrow';
 import { useState } from 'react';
 import { SquarePen } from 'lucide-react';
-import GroupingPathCom from '@/components/table/table-element/GroupingPathCom';
+import GroupingPathCell from '@/components/table/table-element/GroupingPathCell';
 import { GroupingPath } from '@/models/groupings-api-results';
 
 interface GroupingTableProps {
@@ -110,8 +110,8 @@ const GroupingsTable = ({ data }: GroupingTableProps) => {
                                         )}
 
                                         {cell.column.id === 'GROUPING PATH' && (
-                                            <GroupingPathCom data={cell.row.getValue('GROUPING PATH')}
-                                                             uniqueId={cell.row.id}/>
+                                            <GroupingPathCell data={cell.row.getValue('GROUPING PATH')}
+                                                          uniqueId={cell.row.id}/>
                                         )}
                                     </div>
                                 </TableCell>

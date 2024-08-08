@@ -19,22 +19,23 @@ interface ToggleProps {
     table: Table<GroupingPath>;
 }
 const ColumnSettings = ({ table } : ToggleProps) => {
-    const [description, setDescription] = useState(true);
-    const [groupingPath, setGroupingPath] = useState(true);
 
-    const toggleDescription = () => {
-        setDescription((prevState) => {
-            const newState = !prevState;
-            table.getColumn('DESCRIPTION')?.toggleVisibility(newState);
-            return newState;
-        });
-    };
+    interface ColumnVisibilityState {
+        DESCRIPTION: boolean;
+        'GROUPING PATH': boolean;
+    }
 
-    const toggleGroupingPath = () => {
-        setGroupingPath((prevState) => {
-            const newState = !prevState;
-            table.getColumn('GROUPING PATH')?.toggleVisibility(newState);
-            return newState;
+    const [columnVisibility, setColumnVisibility] = useState<ColumnVisibilityState>({
+        DESCRIPTION: true,
+        'GROUPING PATH': true,
+    })
+
+    const toggleColumnVisibility = (columnKey: keyof ColumnVisibilityState) => (checked: boolean) => {
+        setColumnVisibility((prevState) => {
+            console.log(`Toggling ${columnKey}: ${checked}`);
+            const newState = checked;
+            table.getColumn(columnKey)?.toggleVisibility(newState);
+            return { ...prevState, [columnKey]: newState };
         });
     };
 
@@ -50,16 +51,16 @@ const ColumnSettings = ({ table } : ToggleProps) => {
                     <DropdownMenuRadioGroup>
                         <DropdownMenuRadioItem value="description" className="px-2">
                             <div className="flex items-center space-x-2">
-                                <Switch id="description" checked={description}
-                                        onCheckedChange={toggleDescription}
+                                <Switch id="description" checked={columnVisibility.DESCRIPTION}
+                                        onCheckedChange={toggleColumnVisibility('DESCRIPTION')}
                                         className="data-[state=checked]:bg-uh-teal"/>
                                 <Label htmlFor="description">Description</Label>
                             </div>
                         </DropdownMenuRadioItem>
                         <DropdownMenuRadioItem value="grouping path" className="px-2">
                             <div className="flex items-center space-x-2">
-                                <Switch id="grouping-path" checked={groupingPath}
-                                        onCheckedChange={toggleGroupingPath}
+                                <Switch id="grouping-path" checked={columnVisibility['GROUPING PATH']}
+                                        onCheckedChange={toggleColumnVisibility('GROUPING PATH')}
                                         className="data-[state=checked]:bg-uh-teal"/>
                                 <Label htmlFor="grouping-path">Grouping Path</Label>
                             </div>
